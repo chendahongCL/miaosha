@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cdh</groupId>
-	<artifactId>miaosha1</artifactId>
+	<artifactId>miaosha</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	<parent>
@@ -37,6 +37,7 @@
 		<module>miaoshashop</module>
 		<module>miaoshaproducttype</module>
 		<module>miaoshaproduct</module>
+		<module>miaosharegister</module>
 	</modules>
 
 </project>

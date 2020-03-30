@@ -9,7 +9,7 @@
     </insert>
 
     <select id="listProductInfo" parameterType="com.miaosha.common.vo.ProductInfoVo" resultType="com.miaosha.common.entity.ProductInfo">
-        select * from productinfo
+        select * from miaosha_productinfo
         <where>
             <include refid="productInfoCondition"></include>
         </where>
@@ -32,10 +32,10 @@
     <update id="updateProductInfo" parameterType="com.miaosha.common.entity.ProductInfo" >
          <choose>
              <when test="approveTime!=null">
-                 UPDATE productinfo set state = #{state},updateTime=#{updateTime},approveTime=#{approveTime} where id = #{id}
+                 UPDATE miaosha_productinfo set state = #{state},updateTime=#{updateTime},approveTime=#{approveTime} where id = #{id}
              </when>
              <otherwise>
-                 UPDATE productinfo set state = #{state},updateTime=#{updateTime} where id = #{id}
+                 UPDATE miaosha_productinfo set state = #{state},updateTime=#{updateTime} where id = #{id}
              </otherwise>
          </choose>
     </update>
