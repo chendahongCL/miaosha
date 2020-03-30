@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaosha.product.mapper.ProductInfoMapper">
+    <insert id="saveProductInfo" parameterType="com.miaosha.common.entity.ProductInfo">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into miaosha_productinfo(producttitle,productname,productpictureurl,productprice,productdiscounts,createTime,state,mechantId,productTypeid,productInventory) value(#{producttitle},#{productname},#{productpictureurl},#{productprice},#{productdiscounts},#{createTime},#{state},#{mechantId},#{productTypeid},#{productInventory})
+    </insert>
+
+    <select id="listProductInfo" parameterType="com.miaosha.common.vo.ProductInfoVo" resultType="com.miaosha.common.entity.ProductInfo">
+        select * from miaosha_productinfo
+        <where>
+            <include refid="productInfoCondition"></include>
+        </where>
+    </select>
+
+    <sql id="productInfoCondition" >
+        <if test="productInfoCondition != null">
+            <if test="productInfoCondition.productname!=null and productInfoCondition.productname!=''">
+                and productname = "${productInfoCondition.productname}"
+            </if>
+            <if test="productInfoCondition.state!=null and productInfoCondition.state!=''">
+                and state = "${productInfoCondition.state}"
+            </if>
+            <if test="productInfoCondition.shopId!=null and productInfoCondition.shopId!=''">
+                and shopId = "${productInfoCondition.shopId}"
+            </if>
+        </if>
+    </sql>
+
+    <update id="updateProductInfo" parameterType="com.miaosha.common.entity.ProductInfo" >
+         <choose>
+             <when test="approveTime!=null">
+                 UPDATE miaosha_productinfo set state = #{state},updateTime=#{updateTime},approveTime=#{approveTime} where id = #{id}
+             </when>
+             <otherwise>
+                 UPDATE miaosha_productinfo set state = #{state},updateTime=#{updateTime} where id = #{id}
+             </otherwise>
+         </choose>
+    </update>
+
+
+    <select id="findProductById" parameterType="int" resultType="com.miaosha.common.entity.ProductInfo" >
+        select * from productinfo where id = #{id}
+    </select>
+</mapper>

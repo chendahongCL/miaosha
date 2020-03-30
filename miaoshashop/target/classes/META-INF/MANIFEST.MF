@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: miaoshashop
+Implementation-Version: 1.0
+Built-By: admin
+Implementation-Vendor-Id: com.cdh
+Build-Jdk: 1.8.0_111
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/miaosha1/miaoshashop
+Created-By: Maven Integration for Eclipse
+
