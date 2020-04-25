@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.miaosha.seckillproduct.mapper.SeckillProductMapper">
+
+	<insert id="saveSeckillProduct"
+		parameterType="com.miaosha.common.entity.SeckillProductInfo">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		miaosha_seckillproduct(productid,seckillnum,seckillprice,productprice,seckillInventory,createtime,starttime,endtime,shopid,state,productTitle,productName)
+		value(#{productid},#{seckillnum},#{seckillprice},#{productprice},#{seckillInventory},#{createtime},#{starttime},#{endtime},#{shopid},#{state},#{productTitle},#{productName})
+	</insert>
+
+	<select id="listSeckillInfo"
+		parameterType="com.miaosha.common.vo.SeckillProductInfoVo"
+		resultType="com.miaosha.common.entity.SeckillProductInfo">
+		select * from miaosha_seckillproduct
+		<where>
+			<include refid="seckillProductInfoCondition"></include>
+		</where>
+	</select>
+
+	<sql id="seckillProductInfoCondition">
+		<if test="seckillProductInfoCondition != null">
+			<if
+				test="seckillProductInfoCondition.shopid!=null and seckillProductInfoCondition.shopid!=''">
+				and shopid = "${seckillProductInfoCondition.shopid}"
+			</if>
+			<if
+				test="seckillProductInfoCondition.state!=null and seckillProductInfoCondition.state!=''">
+				and state = "${seckillProductInfoCondition.state}"
+			</if>
+		</if>
+	</sql>
+
+	<update id="updateSeckillInfoState"
+		parameterType="com.miaosha.common.entity.SeckillProductInfo">
+		<choose>
+			<when test="approveTime!=null">
+				UPDATE miaosha_seckillproduct set state = #{state},approveTime=#{approveTime}
+				where id = #{id}
+			</when>
+			<otherwise>
+				UPDATE miaosha_seckillproduct set state = #{state} where id = #{id}
+			</otherwise>
+		</choose>
+	</update>
+
+
+
+</mapper>
